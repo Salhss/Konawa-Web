@@ -1,4 +1,4 @@
-module.exports = (error, _, res, _) => {
+module.exports = (error, _, res, __) => {
   let message = "Internal Server Error";
   let status = 500;
 
