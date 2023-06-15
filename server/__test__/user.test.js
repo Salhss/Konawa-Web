@@ -28,43 +28,11 @@ beforeAll(async () => {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    const newCustomer1 = {
-      email: "customer1@mail.com",
-      password: "12345",
-      refreshToken: "blablalbalabla",
-      isMember: "false",
-      isGoldMember: "false",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    const newCustomer2 = {
-      email: "customer2@mail.com",
-      password: "12345",
-      refreshToken: "blablalbalabla",
-      isMember: "true",
-      isGoldMember: "false",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    const newCustomer3 = {
-      email: "customer3@mail.com",
-      password: "12345",
-      refreshToken: "blablalbalabla",
-      isMember: "false",
-      isGoldMember: "true",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
 
     await sequelize.queryInterface.bulkInsert("Admins", [newAdmin], {});
     await sequelize.queryInterface.bulkInsert(
       "Staffs",
       [newStaff, newStaff2],
-      {}
-    );
-    await sequelize.queryInterface.bulkInsert(
-      "Customers",
-      [newCustomer1, newCustomer2, newCustomer3],
       {}
     );
   } catch (error) {
@@ -84,17 +52,22 @@ afterAll(async () => {
       cascade: true,
       truncate: true,
     });
-    await sequelize.queryInterface.bulkDelete("Customers", null, {
-      restartIdentity: true,
-      cascade: true,
-      truncate: true,
-    });
   } catch (error) {
     console.log("🚀 ~ file: user.test.js:93 ~ afterAll ~ error:", error);
   }
 });
 
 describe("Success Process", function () {
+  it("should login a created admin account", async () => {
+    const admin = {
+      email: "admin1@mail.com",
+      password: "12345",
+    };
+    const response = await request(app).post("/adminLogin").send(admin);
+    expect(response.status).toBe(201);
+    expect(response.body).toBeInstanceOf(Object);
+    expect(response.body).toHaveProperty("access_token");
+  });
   it("should create new admin account", async () => {
     const createdAdmin = {
       email: "admin2@mail.com",
@@ -107,6 +80,89 @@ describe("Success Process", function () {
     expect(response.body).toBeInstanceOf(Object);
     expect(response.body).toEqual({
       message: `${createdAdmin.email} have been created`,
+    });
+  });
+});
+
+describe("Error Proccess", function () {
+  describe("Error when login admin", function () {
+    it("return email must be required when email null", async () => {
+      const admin = {
+        password: "12345",
+      };
+      const response = await request(app).post("/adminLogin").send(admin);
+      expect(response.status).toBe(400);
+      expect(response.body).toBeInstanceOf(Object);
+      expect(response.body).toEqual({ message: "mail must be required" });
+    });
+    it("return password must be required when password null", async () => {
+      const admin = {
+        email: "admin1@mail.com",
+      };
+      const response = await request(app).post("/adminLogin").send(admin);
+      expect(response.status).toBe(400);
+      expect(response.body).toBeInstanceOf(Object);
+      expect(response.body).toEqual({ message: "password must be required" });
+    });
+    it("return email must be required when email empty string", async () => {
+      const admin = {
+        email: "",
+        password: "12345",
+      };
+      const response = await request(app).post("/adminLogin").send(admin);
+      expect(response.status).toBe(400);
+      expect(response.body).toBeInstanceOf(Object);
+      expect(response.body).toEqual({ message: "email must be required" });
+    });
+    it("return password must be required when password empty string", async () => {
+      const admin = {
+        email: "admin1@mail.com",
+        password: "",
+      };
+      const response = await request(app).post("/adminLogin").send(admin);
+      expect(response.status).toBe(400);
+      expect(response.body).toBeInstanceOf(Object);
+      expect(response.body).toEqual({ message: "password must be required" });
+    });
+  });
+  describe("Error when create register admin", function () {
+    it("return email must be required when email null", async () => {
+      const admin = {
+        password: "12345",
+      };
+      const response = await request(app).post("/adminRegister").send(admin);
+      expect(response.status).toBe(400);
+      expect(response.body).toBeInstanceOf(Object);
+      expect(response.body).toEqual({ message: "mail must be required" });
+    });
+    it("return password must be required when password null", async () => {
+      const admin = {
+        email: "admin2@mail.com",
+      };
+      const response = await request(app).post("/adminRegister").send(admin);
+      expect(response.status).toBe(400);
+      expect(response.body).toBeInstanceOf(Object);
+      expect(response.body).toEqual({ message: "password must be required" });
+    });
+    it("return email must be required when email empty string", async () => {
+      const admin = {
+        email: "",
+        password: "12345",
+      };
+      const response = await request(app).post("/adminRegister").send(admin);
+      expect(response.status).toBe(400);
+      expect(response.body).toBeInstanceOf(Object);
+      expect(response.body).toEqual({ message: "email must be required" });
+    });
+    it("return password must be required when password empty string", async () => {
+      const admin = {
+        email: "admin2@mail.com",
+        password: "",
+      };
+      const response = await request(app).post("/adminRegister").send(admin);
+      expect(response.status).toBe(400);
+      expect(response.body).toBeInstanceOf(Object);
+      expect(response.body).toEqual({ message: "password must be required" });
     });
   });
 });
