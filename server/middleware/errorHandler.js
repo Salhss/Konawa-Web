@@ -13,6 +13,11 @@ module.exports = (error, _, res, __) => {
       message = "password must be required";
       break;
 
+    case "Username Empty":
+      status = 400;
+      message = "username must be required";
+      break;
+
     case "Email Not Unique":
       status = 400;
       message = "Email have beed registered, create a new one!";
