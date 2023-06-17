@@ -3,7 +3,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Customer extends Model {
     static associate(models) {
-      Customer.belongsToMany(models.Event, {
+      Customer.belongsToMany(models.Events, {
         through: models.CustomerEvents,
         onDelete: "cascade",
         onUpdate: "cascade",

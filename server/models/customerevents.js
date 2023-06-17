@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   class CustomerEvents extends Model {
     static associate(models) {
       CustomerEvents.belongsTo(models.Customer);
-      CustomerEvents.belongsTo(models.Event);
+      CustomerEvents.belongsTo(models.Events);
     }
   }
   CustomerEvents.init(

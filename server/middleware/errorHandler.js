@@ -5,7 +5,27 @@ module.exports = (error, _, res, __) => {
   switch (error.name) {
     case "Email Empty":
       status = 400;
-      message = "Do not empty your email!";
+      message = "email must be required";
+      break;
+
+    case "Password Empty":
+      status = 400;
+      message = "password must be required";
+      break;
+
+    case "Email Not Unique":
+      status = 400;
+      message = "Email have beed registered, create a new one!";
+      break;
+
+    case "Email Not Match":
+      status = 400;
+      message = "Email not registered, try to sign up first";
+      break;
+
+    case "Password Not Match":
+      status = 400;
+      message = "password didn't match";
       break;
 
     case "InvalidToken":
