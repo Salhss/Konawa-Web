@@ -64,7 +64,7 @@ describe("Success Process", function () {
       password: "12345",
     };
     const response = await request(app).post("/adminLogin").send(admin);
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Object);
     expect(response.body).toHaveProperty("access_token");
   });
@@ -133,9 +133,9 @@ describe("Error Proccess", function () {
       };
       const response = await request(app).post("/adminLogin").send(admin);
       expect(response.status).toBe(400);
-      expect(response.error).toHaveProperty("name");
-      expect(response.error.name).toHaveProperty("message");
-      expect(response.error.name.message).toBe(
+      expect(response.text).toEqual(expect.any(String));
+      expect(JSON.parse(response.text)).toHaveProperty("message");
+      expect(JSON.parse(response.text).message).toBe(
         "Email not registered, try to sign up first"
       );
     });
@@ -146,9 +146,9 @@ describe("Error Proccess", function () {
       };
       const response = await request(app).post("/adminLogin").send(admin);
       expect(response.status).toBe(400);
-      expect(response.error).toHaveProperty("name");
-      expect(response.error.name).toHaveProperty("message");
-      expect(response.error.name.message).toBe("password didn't match");
+      expect(response.text).toEqual(expect.any(String));
+      expect(JSON.parse(response.text)).toHaveProperty("message");
+      expect(JSON.parse(response.text).message).toBe("password didn't match");
     });
   });
   describe("Error when create register admin", function () {
