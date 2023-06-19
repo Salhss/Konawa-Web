@@ -1,7 +1,7 @@
 const { verifyToken } = require("../helpers/helper");
-const { Customer, Admin, Staff, Event } = require("../models");
+const { Customer, Admin, Staff, Events } = require("../models");
 
-async function authenticationAdmin(req, _, next) {
+async function authentication(req, _, next) {
   let access_token = req.headers.access_token;
   try {
     if (!access_token) throw { name: "InvalidToken" };
@@ -10,12 +10,23 @@ async function authenticationAdmin(req, _, next) {
 
     let admin = await Admin.findOne({ where: { email: payload.email } });
 
-    if (!admin) throw { name: "InvalidToken" };
+    if (admin) {
+      req.admin = {
+        id: admin.id,
+        email: admin.email,
+      };
+    } else if (!admin) {
+      let staff = await Staff.findOne({ where: { email: payload.email } });
 
-    req.admin = {
-      id: admin.id,
-      email: admin.email,
-    };
+      if (!staff || staff.status == "inactive") throw { name: "InvalidToken" };
+
+      req.staff = {
+        id: staff.id,
+        email: staff.email,
+      };
+    } else {
+      throw { name: "InvalidToken" };
+    }
 
     next();
   } catch (error) {
@@ -29,14 +40,19 @@ async function authenticationAdmin(req, _, next) {
 
 async function authorization(req, _, next) {
   try {
-    let admin = req.admin;
-    if (!admin) throw { name: "Forbidden" };
-
-    next();
+    if (req.staff) {
+      let event = await Events.findOne({ where: { creator: req.staff.email } });
+      if (!event) throw { name: "Forbidden" };
+      next();
+    } else if (req.admin) {
+      next();
+    } else {
+      throw { name: "Forbidden" };
+    }
   } catch (error) {
     console.log("🚀 ~ file: auth.js ~ authorization ~ error:", error);
     next(error);
   }
 }
 
-module.exports = { authenticationAdmin, authorization };
+module.exports = { authentication, authorization };

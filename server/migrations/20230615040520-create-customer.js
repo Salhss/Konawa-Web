@@ -20,11 +20,8 @@ module.exports = {
       refreshToken: {
         type: Sequelize.TEXT,
       },
-      isMember: {
-        type: Sequelize.BOOLEAN,
-      },
-      isGoldMember: {
-        type: Sequelize.BOOLEAN,
+      memberStatus: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

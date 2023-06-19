@@ -18,6 +18,11 @@ module.exports = (error, _, res, __) => {
       message = "username must be required";
       break;
 
+    case "Name Empty":
+      status = 400;
+      message = "name must be required";
+      break;
+
     case "Email Not Unique":
       status = 400;
       message = "Email have beed registered, create a new one!";
@@ -31,6 +36,11 @@ module.exports = (error, _, res, __) => {
     case "Password Not Match":
       status = 400;
       message = "password didn't match";
+      break;
+
+    case "Category Not Unique":
+      status = 400;
+      message = "Category have beed created, create a new one!";
       break;
 
     case "InvalidToken":

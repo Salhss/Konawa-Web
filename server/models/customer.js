@@ -55,8 +55,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       refreshToken: DataTypes.TEXT,
-      isMember: DataTypes.BOOLEAN,
-      isGoldMember: DataTypes.BOOLEAN,
+      memberStatus: DataTypes.STRING,
     },
     {
       sequelize,
