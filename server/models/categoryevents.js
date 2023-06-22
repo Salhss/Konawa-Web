@@ -15,9 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         allowNull: false,
         type: DataTypes.STRING,
+        unique: { msg: "Category must unique" },
         validate: {
-          notEmpty: "Category name cannot empty",
-          notNull: "Category name cannot null",
+          notEmpty: { msg: "Category name cannot empty" },
+          notNull: { msg: "Category name cannot null" },
         },
       },
     },

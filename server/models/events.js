@@ -21,66 +21,67 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notNull: "summary cannot null",
-          notEmpty: "summary cannot empty",
+          notNull: { msg: "summary cannot null" },
+          notEmpty: { msg: "summary cannot empty" },
         },
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
-          notNull: "description cannot null",
-          notEmpty: "description cannot empty",
+          notNull: { msg: "description cannot null" },
+          notEmpty: { msg: "description cannot empty" },
         },
       },
       location: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notNull: "location cannot null",
-          notEmpty: "location cannot empty",
+          notNull: { msg: "location cannot null" },
+          notEmpty: { msg: "location cannot empty" },
         },
       },
       startDateTime: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notNull: "startDateTime cannot null",
-          notEmpty: "startDateTime cannot empty",
+          notNull: { msg: "startDateTime cannot null" },
+          notEmpty: { msg: "startDateTime cannot empty" },
         },
       },
       endDateTime: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notNull: "endDateTime cannot null",
-          notEmpty: "endDateTime cannot empty",
+          notNull: { msg: "endDateTime cannot null" },
+          notEmpty: { msg: "endDateTime cannot empty" },
         },
       },
       imageUrl: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
-          notNull: "imageUrl cannot null",
-          notEmpty: "imageUrl cannot empty",
+          notNull: { msg: "imageUrl cannot null" },
+          notEmpty: { msg: "imageUrl cannot empty" },
         },
       },
       categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          notNull: "category cannot null",
-          notEmpty: "category cannot empty",
+          notNull: { msg: "category cannot null" },
+          notEmpty: { msg: "category cannot empty" },
         },
       },
       isBigEvent: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         validate: {
-          notNull: "isBigEvent cannot null",
-          notEmpty: "isBigEvent cannot empty",
+          notNull: { msg: "isBigEvent cannot null" },
+          notEmpty: { msg: "isBigEvent cannot empty" },
         },
       },
+      EventId: DataTypes.STRING,
       creator: DataTypes.STRING,
     },
     {

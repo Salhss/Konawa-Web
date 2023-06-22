@@ -42,9 +42,20 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "username cannot null",
+          },
+          notEmpty: {
+            msg: "username cannot null",
+          },
+        },
+      },
       refreshToken: DataTypes.TEXT,
-      isMember: DataTypes.BOOLEAN,
-      isGoldMember: DataTypes.BOOLEAN,
+      memberStatus: DataTypes.STRING,
     },
     {
       sequelize,

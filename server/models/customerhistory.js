@@ -10,16 +10,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notNull: "event name cannot null",
-          notEmpty: "event name cannot empty",
+          notNull: { msg: "event name cannot null" },
+          notEmpty: { msg: "event name cannot empty" },
         },
       },
       status: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notNull: "event status cannot null",
-          notEmpty: "event status cannot empty",
+          notNull: { msg: "event status cannot null" },
+          notEmpty: { msg: "event status cannot empty" },
         },
       },
     },

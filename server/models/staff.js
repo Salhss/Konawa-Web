@@ -43,6 +43,18 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "username cannot null",
+          },
+          notEmpty: {
+            msg: "username cannot null",
+          },
+        },
+      },
       adminId: {
         type: DataTypes.INTEGER,
         allowNull: false,

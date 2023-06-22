@@ -13,6 +13,21 @@ module.exports = (error, _, res, __) => {
       message = "password must be required";
       break;
 
+    case "Username Empty":
+      status = 400;
+      message = "username must be required";
+      break;
+
+    case "Name Empty":
+      status = 400;
+      message = "name must be required";
+      break;
+
+    case "Id Empty":
+      status = 400;
+      message = "id must be required";
+      break;
+
     case "Email Not Unique":
       status = 400;
       message = "Email have beed registered, create a new one!";
@@ -28,9 +43,19 @@ module.exports = (error, _, res, __) => {
       message = "password didn't match";
       break;
 
+    case "Category Not Unique":
+      status = 400;
+      message = "Category have beed created, create a new one!";
+      break;
+
+    case "Input Empty":
+      status = 400;
+      message = "Cannot empty this field";
+      break;
+
     case "InvalidToken":
       status = 401;
-      message = "You're not auntheticated!";
+      message = "You're not authenticated!";
       break;
 
     case "Forbidden":
