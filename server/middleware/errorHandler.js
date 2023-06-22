@@ -23,6 +23,11 @@ module.exports = (error, _, res, __) => {
       message = "name must be required";
       break;
 
+    case "Id Empty":
+      status = 400;
+      message = "id must be required";
+      break;
+
     case "Email Not Unique":
       status = 400;
       message = "Email have beed registered, create a new one!";
@@ -43,9 +48,14 @@ module.exports = (error, _, res, __) => {
       message = "Category have beed created, create a new one!";
       break;
 
+    case "Input Empty":
+      status = 400;
+      message = "Cannot empty this field";
+      break;
+
     case "InvalidToken":
       status = 401;
-      message = "You're not auntheticated!";
+      message = "You're not authenticated!";
       break;
 
     case "Forbidden":

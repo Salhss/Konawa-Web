@@ -55,4 +55,14 @@ async function authorization(req, _, next) {
   }
 }
 
-module.exports = { authentication, authorization };
+async function authorizationAdminOnly(req, _, next) {
+  try {
+    if (!req.admin) throw { name: "Forbidden" };
+    next();
+  } catch (error) {
+    console.log("🚀 ~ file: auth.js ~ authorizationAdminOnly:", error);
+    next(error);
+  }
+}
+
+module.exports = { authentication, authorization, authorizationAdminOnly };
